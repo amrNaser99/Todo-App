@@ -25,14 +25,16 @@ Widget defaultButton({
     );
 
 Widget defaultTextFormField({
+
   required TextEditingController controller,
   required TextInputType keyboardType,
   required String labelText,
   required IconData prefixIcon,
- // required String Function(String? value) validate,
+  required FormFieldValidator<String> validate,
   IconData? suffixIcon,
   void Function(String)? onSubmitted,
   void Function(String)? onChanged,
+  void Function()? onTap,
   bool isPassword = false,
   double radius =10.0,
 }) =>
@@ -47,6 +49,7 @@ Widget defaultTextFormField({
         suffixIcon: suffixIcon != null ? Icon(suffixIcon) : null,
       ),
       onChanged: onChanged,
-    //  validator: validate,
+      onTap: onTap,
+      validator: validate,
       onFieldSubmitted: onSubmitted,
     );

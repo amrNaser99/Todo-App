@@ -4,6 +4,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:todo/Module/archieve/archieve.dart';
 import 'package:todo/Module/done/done_screan.dart';
 import 'package:todo/Module/new_task/new_task.dart';
+import 'package:todo/shared/componends/componends.dart';
 
 class HomeScrean extends StatefulWidget {
   const HomeScrean({Key? key}) : super(key: key);
@@ -23,8 +24,10 @@ class _HomeScreanState extends State<HomeScrean> {
 
   late Database database;
   var ScaffoldKey = GlobalKey<ScaffoldState>();
-  bool isBottonSheat = false ;
-  IconData fabIcon = Icons.edit ;
+  bool isBottonSheat = false;
+  IconData fabIcon = Icons.edit;
+  var titleController = TextEditingController();
+  var timeController = TextEditingController();
 
   @override
   void initState() {
@@ -48,22 +51,65 @@ class _HomeScreanState extends State<HomeScrean> {
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () {
-
-          if(isBottonSheat){
+          if (isBottonSheat) {
             Navigator.pop(context);
             setState(() {
               fabIcon = Icons.edit;
             });
             isBottonSheat = false;
-          }
-          else{
+          } else {
             setState(() {
               fabIcon = Icons.add;
-              ScaffoldKey.currentState?.showBottomSheet((context) => Column(
-                children: [
 
-                ],
-              ));
+              ScaffoldKey.currentState?.showBottomSheet((context) => Container(
+                    color: Colors.grey[100],
+                    padding: EdgeInsets.all(
+                      20.0,
+                    ),
+                    child: Column(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        defaultTextFormField(
+                          controller: titleController,
+                          keyboardType: TextInputType.text,
+                          validate: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Please enter some text';
+                            }
+                            return null;
+                          },
+                          labelText: 'Task Title',
+                          prefixIcon: Icons.title,
+                        ),
+                        SizedBox(
+                          height: 15.0,
+                        ),
+                        defaultTextFormField(
+                          controller: timeController,
+                          keyboardType: TextInputType.datetime,
+                          validate: (value) {
+                            if (value == null || value.isEmpty) {
+                              return 'Time Must Not Be Empty';
+                            }
+                            return null;
+                          },
+                          labelText: 'Task time',
+                          prefixIcon: Icons.watch_later_outlined,
+                          onTap: () {
+                            showTimePicker(
+                                    context: context,
+                                    initialTime: TimeOfDay.now())
+                                .then((value)
+                                {
+                                  print(value?.format(context));
+                                  timeController.text =  value!.format(context).toString();
+                                  print(timeController.text);
+                            });
+                          },
+                        ),
+                      ],
+                    ),
+                  ));
             });
             isBottonSheat = true;
           }
@@ -124,16 +170,16 @@ class _HomeScreanState extends State<HomeScrean> {
   }
 
   void insertToDatabase() {
-    database.transaction((txn) async
-    {
-      txn.rawInsert('INSERT INTO tasks(title, date, time, status) VALUES("first task","15/9","12:04","new")').then((value) {
+    database.transaction((txn) async {
+      txn
+          .rawInsert(
+              'INSERT INTO tasks(title, date, time, status) VALUES("first task","15/9","12:04","new")')
+          .then((value) {
         print('$value is inserting successfully');
-      }).catchError((error)
-      {
-      print('Error when Insert new raw Record ${error.toString()}');
+      }).catchError((error) {
+        print('Error when Insert new raw Record ${error.toString()}');
       });
       return null;
     });
   }
-
 }
