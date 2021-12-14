@@ -53,3 +53,40 @@ Widget defaultTextFormField({
       validator: validate,
       onFieldSubmitted: onSubmitted,
     );
+
+  void buildTaskItem() => Padding(
+    padding: const EdgeInsets.all(20.0),
+    child: Row(
+      children: [
+        CircleAvatar(
+          radius: 40.0,
+          child: Text(
+              '04:00 PM'
+          ),
+        ),
+        SizedBox(
+          width: 20.0,
+        ),
+        Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              'Task Title',
+              style: TextStyle(
+                  fontSize: 30.0,
+                  fontWeight: FontWeight.bold
+              ),
+            ),
+            SizedBox(
+              height: 5.0,
+            ),
+            Text(
+              'Task Date',
+
+            ),
+          ],
+        ),
+      ],
+    ),
+  );
