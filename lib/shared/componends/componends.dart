@@ -54,14 +54,14 @@ Widget defaultTextFormField({
       onFieldSubmitted: onSubmitted,
     );
 
-  void buildTaskItem() => Padding(
+  Widget buildTaskItem(Map model) => Padding(
     padding: const EdgeInsets.all(20.0),
     child: Row(
       children: [
         CircleAvatar(
           radius: 40.0,
           child: Text(
-              '04:00 PM'
+              '${model['time']}',
           ),
         ),
         SizedBox(
@@ -72,7 +72,7 @@ Widget defaultTextFormField({
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              'Task Title',
+              '${model['title']}',
               style: TextStyle(
                   fontSize: 30.0,
                   fontWeight: FontWeight.bold
@@ -82,7 +82,7 @@ Widget defaultTextFormField({
               height: 5.0,
             ),
             Text(
-              'Task Date',
+              '${model['date']}',
 
             ),
           ],
