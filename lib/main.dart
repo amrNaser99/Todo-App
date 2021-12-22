@@ -4,16 +4,12 @@ import 'package:todo/layout/home_layout.dart';
 import 'package:todo/shared/bloc_observer.dart';
 
 void main() {
-
-
-  BlocOverrides.runZoned(()
-  {
-          runApp(MyApp());
-          },
+  BlocOverrides.runZoned(
+    () {
+      runApp(const MyApp());
+    },
     blocObserver: MyBlocObserver(),
   );
-
-
 }
 
 class MyApp extends StatelessWidget {
@@ -21,7 +17,7 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return  MaterialApp(
+    return MaterialApp(
       title: 'ToDo App',
       debugShowCheckedModeBanner: false,
       home: HomeScrean(),

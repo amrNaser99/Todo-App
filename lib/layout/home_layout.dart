@@ -51,19 +51,7 @@ class HomeScrean extends StatelessWidget {
                       title: titleController.text,
                       time: timeController.text,
                       date: dateController.text);
-                  // cubit.insertToDatabase(
-                  //   title: titleController.text,
-                  //   date: dateController.text,
-                  //   time: timeController.text,
-                  // ).then((value) {
-                  //   cubit.getDataFromDataBase(cubit.database).then((value) {
-                  //
-                  //     Navigator.pop(context);
-                  //       cubit.tasks = value;
-                  //       print(cubit.tasks);
-                  //
-                  //   });
-                  // });
+
                 }
               } else {
                 scaffoldKey.currentState?.showBottomSheet(

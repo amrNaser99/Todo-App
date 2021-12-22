@@ -45,6 +45,7 @@ dependencies:
 
 
 
+
   # Add the dependency for the Firebase Core Flutter SDK
   # firebase_core: ^0.4.0+9
 
